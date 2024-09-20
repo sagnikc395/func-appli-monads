@@ -44,3 +44,9 @@ export function applyMaybe<A, B>(f: Maybe<(a: A) => B>, m: Maybe<A>): Maybe<B> {
   //else apply the function in the Maybe to the data in the Maybe
   return { just: f!.just(m!.just) };
 }
+
+export function applyArray<A, B>(fa: ((a: A) => B)[], arr: A[]): B[] {
+  // apply each function in the array
+  // to each element in the other array
+  return fa.flatMap((f) => arr.map(f));
+}

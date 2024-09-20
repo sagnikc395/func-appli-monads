@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { applyMaybe, fmapMaybe } from ".";
+import { applyArray, applyMaybe, fmapMaybe } from ".";
 
 // test the fmaptype
 test("fmap with value", () => {
@@ -18,4 +18,11 @@ test("apply maybe", () => {
   expect(applyMaybe({ just: (x) => x + 3 }, { just: 2 })).toStrictEqual({
     just: 5,
   });
+});
+
+//check for applying array
+test("apply array", () => {
+  expect(applyArray([(x) => x * 2, (x) => x + 3], [1, 2, 3])).toStrictEqual([
+    2, 4, 6, 4, 5, 6,
+  ]);
 });
