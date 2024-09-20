@@ -29,3 +29,18 @@ export function fmapFunction<A, B, C>(
 ): (a: A) => C {
   return compose(f, g);
 }
+
+export function applyMaybe<A, B>(f: Maybe<(a: A) => B>, m: Maybe<A>): Maybe<B> {
+  //if maybe is Nothing, return Nothing
+
+  if (f === undefined) {
+    return null;
+  }
+  //if the data is Maybe is Nothing, return Nothing
+  if (m === undefined) {
+    return null;
+  }
+
+  //else apply the function in the Maybe to the data in the Maybe
+  return { just: f!.just(m!.just) };
+}
