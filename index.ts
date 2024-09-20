@@ -17,3 +17,15 @@ export const fmapMaybe = <A, B>(f: (a: A) => B, m: Maybe<A>): Maybe<B> => {
   // applies to the contents.
   return { just: f(m.just) };
 };
+
+export function compose<A, B, C>(f: (a: A) => B, g: (b: B) => C): (a: A) => C {
+  return function (x: A): C {
+    return g(f(x));
+  };
+}
+export function fmapFunction<A, B, C>(
+  f: (a: A) => B,
+  g: (b: B) => C
+): (a: A) => C {
+  return compose(f, g);
+}
