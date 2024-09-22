@@ -2,9 +2,9 @@ console.log(((x) => x + 3)(2));
 
 //maybe type
 
-type Nothing = null;
-type Just<A> = { just: A };
-type Maybe<A> = Nothing | Just<A>;
+export type Nothing = null;
+export type Just<A> = { just: A };
+export type Maybe<A> = Nothing | Just<A>;
 
 //fmap -> to know how to apply functions to values that are wrapped in a context
 
@@ -49,4 +49,17 @@ export function applyArray<A, B>(fa: ((a: A) => B)[], arr: A[]): B[] {
   // apply each function in the array
   // to each element in the other array
   return fa.flatMap((f) => arr.map(f));
+}
+
+// some currying
+export const add = (a: number) => (b: number) => a + b;
+export const multiply = (a: number) => (b: number) => a * b;
+
+//lifeA2 and Maybe type
+export function liftA2Maybe<A, B, C>(
+  f: (a: A) => (b: B) => C,
+  a: Maybe<A>,
+  b: Maybe<B>
+): Maybe<C> {
+  return applyMaybe(fmapMaybe(f, a), b);
 }
